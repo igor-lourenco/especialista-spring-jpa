@@ -1,0 +1,62 @@
+package com.especialista.spring.jpa.entities;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import jakarta.persistence.*;
+import java.math.BigDecimal;
+
+@SqlResultSetMappings({ // usando em: _12_consultas_nativas._4_Mapeando_resultado_de_queries_com_SqlResultSetMapping
+    @SqlResultSetMapping(name = "tb_item_pedido_tb_produto.ItemPedido_Produto" // não existe um padrão para nomear
+        , entities = {@EntityResult(entityClass = ItemPedido.class),
+            @EntityResult(entityClass = Produto.class)}
+    )
+})
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "tb_item_pedido" /*, catalog = "especialistajpadb"*/)
+public class ItemPedido {
+
+    @EmbeddedId // chave primária composta como um objeto de valor embutido dentro dessa entidade.
+    private ItemPedidoId id;
+
+//  Usado para guardar a versão da entidade no banco de dados, usada pelo JPA para controle de concorrência otimista, serve
+    @Version  // para evitar que duas transações sobrescrevam dados uma da outra silenciosamente.
+    private Integer versao;
+
+    @Column(name = "preco_produto", precision = 19, scale = 2, nullable = false)
+    private BigDecimal precoProduto;
+
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidade;
+
+//  O nome do atributo dentro da chave composta ao qual o atributo de relacionamento corresponde. Se não for fornecido, o relacionamento mapeia a chave primária da entidade.
+    @MapsId("pedidoId") // Especifica ao JPA que um ou mais campos da PK vêm do identificador de uma associação (@ManyToOne ou @OneToOne), evitando duplicidade de colunas e mantendo tudo sincronizado.
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false // muitos itemPedido tem em um pedido, por padrão usa o Fetch.EAGER
+//        , cascade = {CascadeType.MERGE //  // ao persistir itemPedido, também irá salvar o pedido em cascata
+//        , CascadeType.REMOVE  // ao remover itemPedido, também irá remover o pedido em cascata
+//        }
+    )
+    @JoinColumn(name = "pedido_id", // especifica uma coluna para unir as associações. (owner)
+        insertable = false, updatable = false, // controla se a coluna será incluída em inserts e updates
+        nullable = false, // define se a coluna pode ser nula no banco
+        foreignKey = @ForeignKey(name = "fk_item_pedido_pedido") // nome da constraint de chave estrangeira
+    )
+    private Pedido pedido;
+
+//  O nome do atributo dentro da chave composta ao qual o atributo de relacionamento corresponde. Se não for fornecido, o relacionamento mapeia a chave primária da entidade.
+    @MapsId("produtoId") // Especifica ao JPA que um ou mais campos da PK vêm do identificador de uma associação (@ManyToOne ou @OneToOne), evitando duplicidade de colunas e mantendo tudo sincronizado.
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false) // muitos itemPedido tem um produto, por padrão usa o Fetch.EAGER
+    @JoinColumn(name = "produto_id", // especifica uma coluna para unir as associações. (owner)
+        insertable = false, updatable = false, // controla se a coluna será incluída em inserts e updates
+        nullable = false, // define se a coluna pode ser nula no banco
+        foreignKey = @ForeignKey(name = "fk_item_pedido_produto") // nome da constraint de chave estrangeira
+    )
+    private Produto produto;
+
+}
