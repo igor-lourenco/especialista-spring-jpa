@@ -1,0 +1,30 @@
+package com.especialista.spring.jpa.services;
+
+import com.especialista.spring.jpa.DTOs.ClienteDTO;
+import com.especialista.spring.jpa.entities.Cliente;
+import com.especialista.spring.jpa.repositories.ClienteRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Log4j2
+@Service
+@RequiredArgsConstructor
+public class ClienteService {
+
+    private final ClienteRepository clienteRepository;
+
+    @Transactional(readOnly = true)
+    public List<ClienteDTO> findAllClientes() {
+
+
+        return clienteRepository.findAllClientes()
+            .stream()
+            .map(ClienteDTO::new)
+            .toList();
+
+    }
+}

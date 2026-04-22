@@ -2,9 +2,9 @@ package com.especialista.spring.jpa.listeners;
 
 import com.especialista.spring.jpa.entities.Pedido;
 
-public class NotaFiscalService {
+public class NotaFiscalServiceListener {
 
-    private NotaFiscalService notaFiscalService;
+    private NotaFiscalServiceListener notaFiscalService;
 
 
     public void gerar(Pedido pedido){

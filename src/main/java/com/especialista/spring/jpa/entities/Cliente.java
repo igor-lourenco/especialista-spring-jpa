@@ -67,7 +67,7 @@ public class Cliente extends EntidadeBaseInteger {
     private List<Pedido> pedidos;
 
 
-    @ElementCollection // Indica que é uma coleção de elementos básicos ou objetos embutidos, JPA cria uma tabela separada para armazenar esses valores
+    @ElementCollection(fetch = FetchType.EAGER) // Indica que é uma coleção de elementos básicos ou objetos embutidos, JPA cria uma tabela separada para armazenar esses valores
     @CollectionTable(
         name = "tb_cliente_contato", // nome da tabela no banco.
         joinColumns = @JoinColumn(

@@ -6,7 +6,7 @@ import jakarta.persistence.PreUpdate;
 
 public class GerarNotaFiscalListener {
 
-    private NotaFiscalService notaFiscalService = new NotaFiscalService();
+    private NotaFiscalServiceListener notaFiscalService = new NotaFiscalServiceListener();
 
 
     @PrePersist // Executa ANTES de persistir no banco de dados
