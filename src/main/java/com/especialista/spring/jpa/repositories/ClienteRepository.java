@@ -18,4 +18,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
         + " LEFT JOIN FETCH p.notaFiscal nf"
     )
     List<Cliente> findAllClientes();
+
+    @Query("SELECT c FROM Cliente c "
+        + " LEFT JOIN FETCH c.contatos con "
+    )
+    List<Cliente> findAllClientesResumo();
 }

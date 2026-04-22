@@ -1,6 +1,7 @@
 package com.especialista.spring.jpa.controllers;
 
 import com.especialista.spring.jpa.DTOs.ClienteDTO;
+import com.especialista.spring.jpa.DTOs.ClienteResumoDTO;
 import com.especialista.spring.jpa.entities.Cliente;
 import com.especialista.spring.jpa.services.ClienteService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,18 @@ public class ClienteController {
         List<ClienteDTO> cliente = clienteService.findAllClientes();
 
         log.info("RESPONSE - GET [findAllClientes]");
+        return cliente;
+
+    }
+
+    @GetMapping(path = "/resumo")  //  busca lista de clientes sem os pedidos
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClienteResumoDTO> findAllClientesResumo(){
+        log.info("REQUEST - GET [findAllClientesResumo]");
+
+        List<ClienteResumoDTO> cliente = clienteService.findAllClientesResumo();
+
+        log.info("RESPONSE - GET [findAllClientesResumo]");
         return cliente;
 
     }

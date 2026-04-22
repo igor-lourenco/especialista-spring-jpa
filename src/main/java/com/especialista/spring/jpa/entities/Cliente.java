@@ -94,7 +94,7 @@ public class Cliente extends EntidadeBaseInteger {
 
     @PostLoad // Executa callback APÓS carregar cliente no banco de dados...
     public void configurarPrimeiroNome() {
-        System.out.println(">>> Executando callback APÓS carregar cliente no banco de dados...");
+        System.out.println(">>> Executando callback APÓS carregar cliente no banco de dados [configurarPrimeiroNome]...");
 
         if (nome != null && !nome.isBlank()) {
             int index = nome.indexOf(" ");
