@@ -1,6 +1,7 @@
 package com.especialista.spring.jpa.services;
 
 import com.especialista.spring.jpa.DTOs.ClienteDTO;
+import com.especialista.spring.jpa.DTOs.ClienteProjecaoDTO;
 import com.especialista.spring.jpa.DTOs.ClienteResumoDTO;
 import com.especialista.spring.jpa.entities.Cliente;
 import com.especialista.spring.jpa.repositories.ClienteRepository;
@@ -36,6 +37,13 @@ public class ClienteService {
             .stream()
             .map(ClienteResumoDTO::new)
             .toList();
+
+    }
+
+    @Transactional(readOnly = true)  //  busca lista de clientes sem os pedidos
+    public List<ClienteProjecaoDTO> findAllClienteProjecaoDTO() {
+
+        return clienteRepository.findAllClienteProjecaoDTO();
 
     }
 }

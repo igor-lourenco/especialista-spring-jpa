@@ -1,6 +1,7 @@
 package com.especialista.spring.jpa.controllers;
 
 import com.especialista.spring.jpa.DTOs.ClienteDTO;
+import com.especialista.spring.jpa.DTOs.ClienteProjecaoDTO;
 import com.especialista.spring.jpa.DTOs.ClienteResumoDTO;
 import com.especialista.spring.jpa.entities.Cliente;
 import com.especialista.spring.jpa.services.ClienteService;
@@ -31,7 +32,6 @@ public class ClienteController {
 
         log.info("RESPONSE - GET [findAllClientes]");
         return cliente;
-
     }
 
     @GetMapping(path = "/resumo")  //  busca lista de clientes sem os pedidos
@@ -43,7 +43,17 @@ public class ClienteController {
 
         log.info("RESPONSE - GET [findAllClientesResumo]");
         return cliente;
+    }
 
+    @GetMapping(path = "/projecao-com-dto")  //  busca lista de clientes sem os pedidos
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClienteProjecaoDTO> findAllClienteProjecaoDTO(){
+        log.info("REQUEST - GET [findAllClienteProjecaoDTO]");
+
+        List<ClienteProjecaoDTO> cliente = clienteService.findAllClienteProjecaoDTO();
+
+        log.info("RESPONSE - GET [findAllClienteProjecaoDTO]");
+        return cliente;
     }
 
 }
