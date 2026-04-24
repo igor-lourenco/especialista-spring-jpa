@@ -1,17 +1,16 @@
 package com.especialista.spring.jpa.repositories;
 
 import com.especialista.spring.jpa.DTOs.ClienteProjecaoDTO;
-import com.especialista.spring.jpa.DTOs.ClienteResumoDTO;
 import com.especialista.spring.jpa.entities.Cliente;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+public interface ClienteRepository extends JpaRepository<Cliente, Integer>, JpaSpecificationExecutor<Cliente> {
 
     @Query("""
         SELECT c FROM Cliente c 
@@ -41,4 +40,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
         FROM Cliente c
     """)
     List<ClienteProjecaoDTO> findAllClienteProjecaoDTO();
+
+
 }

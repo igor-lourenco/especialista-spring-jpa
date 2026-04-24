@@ -3,7 +3,6 @@ package com.especialista.spring.jpa.controllers;
 import com.especialista.spring.jpa.DTOs.ClienteDTO;
 import com.especialista.spring.jpa.DTOs.ClienteProjecaoDTO;
 import com.especialista.spring.jpa.DTOs.ClienteResumoDTO;
-import com.especialista.spring.jpa.entities.Cliente;
 import com.especialista.spring.jpa.services.ClienteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -53,6 +52,17 @@ public class ClienteController {
         List<ClienteProjecaoDTO> cliente = clienteService.findAllClienteProjecaoDTO();
 
         log.info("RESPONSE - GET [findAllClienteProjecaoDTO]");
+        return cliente;
+    }
+
+    @GetMapping(path = "/por-like-nome-spec")  //  busca lista de clientes sem os pedidos
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClienteDTO> findAllByLikeNomeSpec(String caractere){
+        log.info("REQUEST - GET [findAllByLikeNomeSpec]");
+
+        List<ClienteDTO> cliente = clienteService.findAllByLikeNomeSpec(caractere);
+
+        log.info("RESPONSE - GET [findAllByLikeNomeSpec]");
         return cliente;
     }
 

@@ -3,8 +3,8 @@ package com.especialista.spring.jpa.services;
 import com.especialista.spring.jpa.DTOs.ClienteDTO;
 import com.especialista.spring.jpa.DTOs.ClienteProjecaoDTO;
 import com.especialista.spring.jpa.DTOs.ClienteResumoDTO;
-import com.especialista.spring.jpa.entities.Cliente;
 import com.especialista.spring.jpa.repositories.ClienteRepository;
+import com.especialista.spring.jpa.specifications.ClienteSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -44,6 +44,18 @@ public class ClienteService {
     public List<ClienteProjecaoDTO> findAllClienteProjecaoDTO() {
 
         return clienteRepository.findAllClienteProjecaoDTO();
+
+    }
+
+
+    @Transactional(readOnly = true)  //  busca lista de clientes que contem o caractere
+    public List<ClienteDTO> findAllByLikeNomeSpec(String caractere) {
+
+
+        return clienteRepository.findAll(ClienteSpec.findAllByLikeCaractere(caractere))
+            .stream()
+            .map(ClienteDTO::new)
+            .toList();
 
     }
 }
