@@ -1,6 +1,7 @@
 package com.especialista.spring.jpa.controllers;
 
 import com.especialista.spring.jpa.DTOs.PedidoDTO;
+import com.especialista.spring.jpa.DTOs.PedidoResumoDTO;
 import com.especialista.spring.jpa.services.PedidoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,5 +32,17 @@ public class PedidoController {
         log.info("RESPONSE - GET [findAllUsandoJoinFetchESpec]");
         return pedido;
     }
+
+    @GetMapping(path = "/customizando-repositorio-base")  //  Busca o último registro criado na tabela pelo ID (Obs: ID tem que ser sequencial)
+    @ResponseStatus(HttpStatus.OK)
+    public PedidoResumoDTO findTheLastCreated(){
+        log.info("REQUEST - GET [findTheLastCreated]");
+
+        PedidoResumoDTO pedido = pedidoService.findTheLastCreated();
+
+        log.info("RESPONSE - GET [findTheLastCreated]");
+        return pedido;
+    }
+
 
 }

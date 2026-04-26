@@ -1,6 +1,7 @@
 package com.especialista.spring.jpa.services;
 
 import com.especialista.spring.jpa.DTOs.PedidoDTO;
+import com.especialista.spring.jpa.DTOs.PedidoResumoDTO;
 import com.especialista.spring.jpa.repositories.PedidoRepository;
 import com.especialista.spring.jpa.specifications.PedidoSpec;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,13 @@ public class PedidoService {
             .map(PedidoDTO::new)
             .toList();
 
+    }
+
+    public PedidoResumoDTO findTheLastCreated() { // Busca o último registro criado na tabela pelo ID (Obs: ID tem que ser sequencial)
+
+        return pedidoRepository.findTheLastCreated("pagamento", "notaFiscal", "itensPedido")
+            .map(PedidoResumoDTO::new)
+            .orElseThrow(
+            () ->  new IllegalArgumentException("Pedido não encontrado"));
     }
 }

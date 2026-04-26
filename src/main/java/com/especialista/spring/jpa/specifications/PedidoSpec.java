@@ -14,14 +14,14 @@ public class PedidoSpec {
     public static Specification<Pedido> findAllUsandoJoinFetchESpec(){
 
         return (root, query, criteriaBuilder) -> {
-//      String jpql1 = SELECT p FROM Pedido p
-//          +  LEFT JOIN FETCH p.pagamento       // Pedido tem que ter Pagamento, não pode ser null (nesse caso tem uma exceção porque tem um pedido sem pagamento que foi criado diretamente no banco de dados)
-//          +  JOIN FETCH p.cliente c           // Pedido tem que ter Cliente, não pode ser null
-//          +  LEFT JOIN FETCH c.contatos con  // Usando LEFT JOIN FETCH para Cliente trazer contatos mesmo se for null
-//          +  LEFT JOIN FETCH p.notaFiscal    // Usando LEFT JOIN FETCH para trazer a notaFiscal mesmo se for null
-//          +  JOIN FETCH p.itensPedido itens // O pedido tem que ter ItemPedido, não pode ser null
-//          +  JOIN FETCH itens.produto prod  // O ItemPedido tem que ter Produto, não pode ser null
-//          +  LEFT JOIN FETCH prod.estoque   // Usando LEFT JOIN FETCH para trazer estoque mesmo se for null
+//          SELECT p FROM Pedido p
+//            LEFT JOIN FETCH p.pagamento       // Pedido tem que ter Pagamento, não pode ser null (nesse caso tem uma exceção porque tem um pedido sem pagamento que foi criado diretamente no banco de dados)
+//            JOIN FETCH p.cliente c           // Pedido tem que ter Cliente, não pode ser null
+//            LEFT JOIN FETCH c.contatos con  // Usando LEFT JOIN FETCH para Cliente trazer contatos mesmo se for null
+//            LEFT JOIN FETCH p.notaFiscal    // Usando LEFT JOIN FETCH para trazer a notaFiscal mesmo se for null
+//            JOIN FETCH p.itensPedido itens // O pedido tem que ter ItemPedido, não pode ser null
+//            JOIN FETCH itens.produto prod  // O ItemPedido tem que ter Produto, não pode ser null
+//            LEFT JOIN FETCH prod.estoque   // Usando LEFT JOIN FETCH para trazer estoque mesmo se for null
 
             root.fetch("pagamento", JoinType.LEFT); // LEFT JOIN FETCH p.pagamento
 
