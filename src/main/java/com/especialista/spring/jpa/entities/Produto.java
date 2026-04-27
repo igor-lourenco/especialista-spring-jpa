@@ -1,11 +1,12 @@
 package com.especialista.spring.jpa.entities;
 
 import com.especialista.spring.jpa.DTOs.ProdutoDTO;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -74,12 +75,18 @@ public class Produto extends EntidadeBaseInteger {
     @Column(precision = 10, scale = 2) // preco decimal(10, 2)
     private BigDecimal preco;
 
-
-    @Column(name = "data_criacao", length = 6, nullable = false, updatable = false) // para não atualizar no banco de dados após criado
+    @CreationTimestamp // serve para preencher automaticamente um campo com a data e hora de criação da entidade, no momento em que ela é persistida pela primeira vez no banco de dados.
+    @Column(name = "data_criacao", length = 6,
+        nullable = false,
+        updatable = false // para não atualizar no banco de dados após criado
+    )
     private LocalDateTime dataCriacao;
 
 
-    @Column(name = "data_ultima_atualizacao", insertable = false) // para não ser criado no banco de dados, ou seja, salvar como null
+    @UpdateTimestamp // serve para atualizar automaticamente um campo com a data/hora da última modificação da entidade, sempre que um UPDATE acontece no banco.
+    @Column(name = "data_ultima_atualizacao",
+        insertable = false // para não ser criado no banco de dados, ou seja, salvar como null
+    )
     private LocalDateTime dataUltimaAtualizacao;
 
 

@@ -1,11 +1,11 @@
 package com.especialista.spring.jpa.entities;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 //@EqualsAndHashCode(onlyExplicitlyIncluded = true) // foi movido para a superclasse
 @Getter
@@ -32,12 +32,13 @@ public class NotaFiscal extends EntidadeBaseInteger {
 
 
 //    @Temporal(TemporalType.DATE) // yyyy-MM-dd
-    @Temporal(TemporalType.TIMESTAMP) // yyyy-MM-dd HH:mm:ss
+//    @Temporal(TemporalType.TIMESTAMP) // yyyy-MM-dd HH:mm:ss
 //    @Temporal(TemporalType.TIME) // HH:mm:ss
+    @CreationTimestamp // serve para preencher automaticamente um campo com a data e hora de criação da entidade, no momento em que ela é persistida pela primeira vez no banco de dados.
     @Column(name = "data_emissao", length = 6,
         nullable = false // define se a coluna pode ser nula no banco
     )
-    private Date dataEmissao;
+    private LocalDateTime dataEmissao;
 
 
     @MapsId // Especifica ao JPA que um ou mais campos da PK vêm do identificador de uma associação (@ManyToOne ou @OneToOne), evitando duplicidade de colunas e mantendo tudo sincronizado.

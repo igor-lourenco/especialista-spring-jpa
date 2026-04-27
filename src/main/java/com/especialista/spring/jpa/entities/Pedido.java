@@ -2,10 +2,12 @@ package com.especialista.spring.jpa.entities;
 
 import com.especialista.spring.jpa.listeners.GenericoListener;
 import com.especialista.spring.jpa.listeners.GerarNotaFiscalListener;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.engine.spi.PersistentAttributeInterceptor;
 
 import java.math.BigDecimal;
@@ -62,13 +64,14 @@ public class Pedido extends EntidadeBaseInteger
 //    @Version  // para evitar que duas transações sobrescrevam dados uma da outra silenciosamente.
 //    private Integer versao;
 
+    @CreationTimestamp // serve para preencher automaticamente um campo com a data e hora de criação da entidade, no momento em que ela é persistida pela primeira vez no banco de dados.
     @Column(name = "data_criacao", length = 6,
         nullable = false, // define se a coluna pode ser nula no banco
         updatable = false // para não atualizar no banco de dados após criado
     )
     private LocalDateTime dataCriacao;
 
-
+    @UpdateTimestamp // serve para atualizar automaticamente um campo com a data/hora da última modificação da entidade, sempre que um UPDATE acontece no banco.
     @Column(name = "data_ultima_atualizacao",
         insertable = false // para não ser criado no banco de dados, ou seja, salvar como null
     )
