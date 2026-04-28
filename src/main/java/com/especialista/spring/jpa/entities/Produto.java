@@ -36,10 +36,13 @@ import java.util.List;
         , entities = { @EntityResult(entityClass = Produto.class)}
     )
 })
+
 @NamedQueries({
-    @NamedQuery(name = "Produto.listar", query = "SELECT p FROM Produto p"), // usando em: _10_JPQL._46_Configurando_uma_named_query
-    @NamedQuery(name = "Produto.listarPorCategoria", query =
-        "SELECT p FROM Produto p "
+    @NamedQuery(name = "Produto.listar",
+        query = "SELECT p FROM Produto p"),
+    @NamedQuery(name = "Produto.listarPorCategoria",
+        query = "SELECT p FROM Produto p " // dá pra usar classe de constantes ou constantes na própria entidade para as queries, enum não funciona
+            +"LEFT JOIN FETCH p.estoque e"
             + " WHERE EXISTS (SELECT 1 FROM Categoria c2 JOIN c2.produtos p2 WHERE p2 = p AND c2.id = :categoriaId)")
 })
 @Getter

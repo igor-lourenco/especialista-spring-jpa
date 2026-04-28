@@ -1,16 +1,12 @@
 package com.especialista.spring.jpa.DTOs;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.especialista.spring.jpa.entities.Produto;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class ProdutoDTO {
-
-    private Integer id;
-    private String nome;
+public record ProdutoDTO(
+    Integer id,
+    String nome
+) {
+    public ProdutoDTO(Produto produto) {
+        this(produto.getId(), produto.getNome());
+    }
 }

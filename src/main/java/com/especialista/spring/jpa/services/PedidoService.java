@@ -22,7 +22,6 @@ public class PedidoService {
     @Transactional(readOnly = true)  //  busca lista de pedidos usando join fetch com entidades e specification
     public List<PedidoDTO> findAllUsandoJoinFetchESpec() {
 
-
         return pedidoRepository.findAll(PedidoSpec.findAllUsandoJoinFetchESpec())
             .stream()
             .map(PedidoDTO::new)
@@ -30,6 +29,8 @@ public class PedidoService {
 
     }
 
+
+    @Transactional(readOnly = true)
     public PedidoResumoDTO findTheLastCreated() { // Busca o último registro criado na tabela pelo ID (Obs: ID tem que ser sequencial)
 
         return pedidoRepository.findTheLastCreated("pagamento", "notaFiscal", "itensPedido")
@@ -38,7 +39,9 @@ public class PedidoService {
             () ->  new IllegalArgumentException("Pedido não encontrado"));
     }
 
-    public List<PedidoDTO> findAllPedidosArquivoXML() {
+
+    @Transactional(readOnly = true)
+    public List<PedidoDTO> findAllPedidosArquivoXML() {   //  Externalizando consultas NamedQuery com JPQL em um arquivo xml
 
         return pedidoRepository.findAllPedidosArquivoXML()
             .stream()
