@@ -11,11 +11,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NamedNativeQueries({ // usando em: _12_consultas_nativas._6_Usando_NamedNativeQuery
+@NamedNativeQueries({
     @NamedNativeQuery(
         name = "tb_produto.listarTodos",
-        query = "SELECT id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto FROM tb_produto ",
-        resultClass = Produto.class
+        query = "SELECT id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto "
+            + " FROM tb_produto ",     //  Se não especificar todas as colunas para ser retornadas, tem que especificar usando fields em SqlResultSetMapping senão solta Exception
+//        resultClass = Produto.class // também funciona se for um retorno simples
+        resultSetMapping = "tb_produto.Produto" // o nome de uma SqlResultSetMapping para mapear o retorno
+
     ),
     @NamedNativeQuery(
         name = "tb_produto.listarTodosDTO",
@@ -31,9 +34,14 @@ import java.util.List;
             @ColumnResult(name = "nome", type = String.class)
         })
 })
-@SqlResultSetMappings({  // usando em: _12_consultas_nativas._4_Mapeando_resultado_de_queries_com_SqlResultSetMapping
-    @SqlResultSetMapping(name = "tb_produto.Produto" // não existe um padrão para nomear
-        , entities = { @EntityResult(entityClass = Produto.class)}
+@SqlResultSetMappings({
+    @SqlResultSetMapping(name = "tb_produto.Produto" , entities = {
+        @EntityResult(entityClass = Produto.class,
+            fields = {
+                @FieldResult(name = "id", column = "id"),
+                @FieldResult(name = "nome", column = "nome"),
+            }
+        )}
     )
 })
 
@@ -42,7 +50,7 @@ import java.util.List;
         query = "SELECT p FROM Produto p"),
     @NamedQuery(name = "Produto.listarPorCategoria",
         query = "SELECT p FROM Produto p " // dá pra usar classe de constantes ou constantes na própria entidade para as queries, enum não funciona
-            +"LEFT JOIN FETCH p.estoque e"
+            +" LEFT JOIN FETCH p.estoque e"
             + " WHERE EXISTS (SELECT 1 FROM Categoria c2 JOIN c2.produtos p2 WHERE p2 = p AND c2.id = :categoriaId)")
 })
 @Getter

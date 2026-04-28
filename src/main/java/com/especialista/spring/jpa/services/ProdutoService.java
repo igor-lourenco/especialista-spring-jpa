@@ -28,5 +28,11 @@ public class ProdutoService {
     }
 
 
-
+    @Transactional(readOnly = true) // busca lista de produtos usando consultas NamedNativeQuery com @SqlResultSetMapping para mapear retorno
+    public List<ProdutoDTO> findAllProdutosUsandoSqlResultSetMappingComNamedNativeQuery() {
+        return repository.findAllProdutosUsandoSqlResultSetMappingComNamedNativeQuery()
+            .stream()
+            .map(ProdutoDTO::new)
+            .toList();
+    }
 }

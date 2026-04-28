@@ -14,4 +14,7 @@ public interface ProdutoRepository extends CustomJpaRepository<Produto, Integer>
 
     @Query(name = "Produto.listarPorCategoria") // usando a consulta que está na anotação @NamedQuerie da entidade
     List<Produto> findAllProdutoslistarPorCategoria(@Param(value = "categoriaId") String categoriaId);
+
+    @Query(name = "tb_produto.listarTodos", nativeQuery = true) // usando a consulta que está na anotação @NamedNativeQuerie com @SqlResultSetMapping da entidade
+    List<Produto> findAllProdutosUsandoSqlResultSetMappingComNamedNativeQuery();
 }

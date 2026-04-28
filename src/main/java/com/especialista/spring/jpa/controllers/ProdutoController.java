@@ -32,5 +32,17 @@ public class ProdutoController {
         return lista;
     }
 
+    @GetMapping(path = "/usando-SqlResultSetMapping-com-NamedNativeQuery")  // busca lista de produtos usando consultas NamedNativeQuery com @SqlResultSetMapping para mapear retorno
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProdutoDTO> findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery(){
+        log.info("REQUEST - GET [findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery]");
+
+
+        List<ProdutoDTO> lista = service.findAllProdutosUsandoSqlResultSetMappingComNamedNativeQuery();
+
+        log.info("RESPONSE - GET [findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery]");
+        return lista;
+    }
+
 
 }
