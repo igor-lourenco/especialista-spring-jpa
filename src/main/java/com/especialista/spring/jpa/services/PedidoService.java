@@ -37,4 +37,12 @@ public class PedidoService {
             .orElseThrow(
             () ->  new IllegalArgumentException("Pedido não encontrado"));
     }
+
+    public List<PedidoDTO> findAllPedidosArquivoXML() {
+
+        return pedidoRepository.findAllPedidosArquivoXML()
+            .stream()
+            .map(PedidoDTO::new)
+            .toList();
+    }
 }

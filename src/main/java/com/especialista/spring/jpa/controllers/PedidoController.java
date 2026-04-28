@@ -44,5 +44,17 @@ public class PedidoController {
         return pedido;
     }
 
+    @GetMapping(path = "/externalizando-jpql-para-arquivo-xml")  //  Busca o último registro criado na tabela pelo ID (Obs: ID tem que ser sequencial)
+    @ResponseStatus(HttpStatus.OK)
+    public List<PedidoDTO> findAllPedidosArquivoXML(){
+        log.info("REQUEST - GET [findAllPedidosArquivoXML]");
+
+
+        List<PedidoDTO> lista = pedidoService.findAllPedidosArquivoXML();
+
+        log.info("RESPONSE - GET [findAllPedidosArquivoXML]");
+        return lista;
+    }
+
 
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+        xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+        version="2.2">
+
+    <!-- ===== Por padrao o arquivo orm.xml nao precisa ser especificado ===== -->
+
+    <named-query name="Pedido.findAllPedidosArquivoXML">
+        <query>
+            SELECT p FROM Pedido p
+            LEFT JOIN FETCH p.pagamento
+            JOIN FETCH p.cliente c
+            LEFT JOIN FETCH c.contatos con
+            LEFT JOIN FETCH p.notaFiscal
+            JOIN FETCH p.itensPedido itens
+            JOIN FETCH itens.produto prod
+            LEFT JOIN FETCH prod.estoque
+        </query>
+    </named-query>
+
+</entity-mappings>
