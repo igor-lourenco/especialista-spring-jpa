@@ -23,6 +23,11 @@ public class CategoriaService {
             .stream()
             .map(CategoriaDTO::new)
             .toList();
+    }
 
+    @Transactional(readOnly = true) // Externalizando consultas NamedNativeQuery com SqlResultSetMappings com retorno DTO em um arquivo xml
+    public List<CategoriaDTO> findAllCategoriaDTOArquivoXML() {
+
+        return repository.findAllCategoriaDTOArquivoXML();
     }
 }
