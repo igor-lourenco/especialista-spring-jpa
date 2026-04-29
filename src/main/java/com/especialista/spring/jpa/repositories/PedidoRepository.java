@@ -11,6 +11,6 @@ import java.util.List;
 public interface PedidoRepository extends CustomJpaRepository<Pedido, Integer>, JpaSpecificationExecutor<Pedido> {
 
 
-    @Query(name = "Pedido.findAllPedidosArquivoXML")
+    @Query(name = "Pedido.findAllPedidosArquivoXML") //  Externalizando consultas NamedQuery com JPQL em um arquivo xml
     List<Pedido> findAllPedidosArquivoXML();
 }

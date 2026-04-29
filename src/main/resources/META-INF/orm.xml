@@ -7,7 +7,10 @@
 
     <!-- ===== Por padrao o arquivo orm.xml nao precisa ser especificado ===== -->
 
-    <named-query name="Pedido.findAllPedidosArquivoXML">
+    <!--============================================================================================    -->
+    <!--================================ NAMED QUERY ===============================================    -->
+
+    <named-query name="Pedido.findAllPedidosArquivoXML"> <!-- Consulta NamedQuery com JPQL -->
         <query>
             SELECT p FROM Pedido p
             LEFT JOIN FETCH p.pagamento
@@ -19,5 +22,25 @@
             LEFT JOIN FETCH prod.estoque
         </query>
     </named-query>
+
+    <!--==================================================================================================    -->
+    <!--================================ NAMED NATIVE QUERY ===============================================    -->
+
+    <named-native-query name="tb_categoria.buscarTodos" result-set-mapping="tb_categoria.Categoria">
+        <query>SELECT * FROM tb_categoria</query>
+    </named-native-query>
+
+
+    <!--=====================================================================================================    -->
+
+    <!-- Nao precisa mapear os campos da entidade, esse serve apenas de exemplo -->
+    <sql-result-set-mapping name="tb_categoria.Categoria">
+        <entity-result entity-class="com.especialista.spring.jpa.entities.Categoria">
+            <field-result name="id" column="id"/>  <!-- tem que ser na ordem do construtor da Categoria -->
+            <field-result name="nome" column="nome"/>
+            <field-result name="categoriaPai" column="categoria_pai_id"/>
+        </entity-result>
+    </sql-result-set-mapping>
+
 
 </entity-mappings>

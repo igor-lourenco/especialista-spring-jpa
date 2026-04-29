@@ -7,12 +7,13 @@ import lombok.Setter;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
-@SqlResultSetMappings({ // usando em: _12_consultas_nativas._4_Mapeando_resultado_de_queries_com_SqlResultSetMapping
-    @SqlResultSetMapping(name = "tb_item_pedido_tb_produto.ItemPedido_Produto" // não existe um padrão para nomear
-        , entities = {@EntityResult(entityClass = ItemPedido.class),
-            @EntityResult(entityClass = Produto.class)}
-    )
-})
+
+//@SqlResultSetMappings({ // TODO: NÃO ESTÁ SENDO UTILIZADO
+//    @SqlResultSetMapping(name = "tb_item_pedido_tb_produto.ItemPedido_Produto" // não existe um padrão para nomear
+//        , entities = {@EntityResult(entityClass = ItemPedido.class),
+//            @EntityResult(entityClass = Produto.class)}
+//    )
+//})
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
