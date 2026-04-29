@@ -1,5 +1,6 @@
 package com.especialista.spring.jpa.repositories;
 
+import com.especialista.spring.jpa.DTOs.ProdutoDTO;
 import com.especialista.spring.jpa.entities.Produto;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,7 @@ public interface ProdutoRepository extends CustomJpaRepository<Produto, Integer>
 
     @Query(name = "tb_produto.listarTodos", nativeQuery = true) // usando a consulta que está na anotação @NamedNativeQuerie com @SqlResultSetMapping da entidade
     List<Produto> findAllProdutosUsandoSqlResultSetMappingComNamedNativeQuery();
+
+    @Query(name = "tb_produto.listarTodosDTO", nativeQuery = true) // usando DTO e consulta que está na anotação @NamedNativeQuerie com @SqlResultSetMapping da entidade
+    List<ProdutoDTO> findAllProdutosUsandoSqlResultSetMappingComNamedNativeQueryEDTO();
 }

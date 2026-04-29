@@ -20,11 +20,10 @@ public class ProdutoController {
 
     private final ProdutoService service;
 
-    @GetMapping(path = "/usando-anotacao_NamedQueries-na-entidade")  // busca lista de produtos pela categoriaId, usando consultas com a anotação @NamedQueries
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/usando-anotacao_NamedQueries-na-entidade")
+    @ResponseStatus(HttpStatus.OK) // busca lista de produtos pela categoriaId, usando consultas com a anotação @NamedQueries
     public List<ProdutoDTO> findAllProdutoslistarPorCategoria_usandoAnotacaoNamedQueriesNaEntidade(String categoriaId){
         log.info("REQUEST - GET [findAllProdutoslistarPorCategoria_usandoAnotacaoNamedQueriesNaEntidade]");
-
 
         List<ProdutoDTO> lista = service.findAllProdutoslistarPorCategoria(categoriaId);
 
@@ -32,8 +31,8 @@ public class ProdutoController {
         return lista;
     }
 
-    @GetMapping(path = "/usando-SqlResultSetMapping-com-NamedNativeQuery")  // busca lista de produtos usando consultas NamedNativeQuery com @SqlResultSetMapping para mapear retorno
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/usando-SqlResultSetMapping-com-NamedNativeQuery")
+    @ResponseStatus(HttpStatus.OK) // busca lista de produtos usando consultas NamedNativeQuery com @SqlResultSetMapping para mapear retorno
     public List<ProdutoDTO> findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery(){
         log.info("REQUEST - GET [findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery]");
 
@@ -41,6 +40,17 @@ public class ProdutoController {
         List<ProdutoDTO> lista = service.findAllProdutosUsandoSqlResultSetMappingComNamedNativeQuery();
 
         log.info("RESPONSE - GET [findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery]");
+        return lista;
+    }
+
+    @GetMapping(path = "/usando-SqlResultSetMapping-com-NamedNativeQuery-e-DTO")
+    @ResponseStatus(HttpStatus.OK) // busca lista de produtos usando DTO e consultas NamedNativeQuery com @SqlResultSetMapping para mapear retorno
+    public List<ProdutoDTO> findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery_e_DTO(){
+        log.info("REQUEST - GET [findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery_e_DTO]");
+
+        List<ProdutoDTO> lista = service.findAllProdutosUsandoSqlResultSetMappingComNamedNativeQueryEDTO();
+
+        log.info("RESPONSE - GET [findAllProdutos_usando_SqlResultSetMapping_com_NamedNativeQuery_e_DTO]");
         return lista;
     }
 

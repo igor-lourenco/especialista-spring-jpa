@@ -15,25 +15,20 @@ import java.util.List;
     @NamedNativeQuery(
         name = "tb_produto.listarTodos",
         query = "SELECT id, nome, descricao, data_criacao, data_ultima_atualizacao, preco, foto "
-            + " FROM tb_produto ",     //  Se não especificar todas as colunas para ser retornadas, tem que especificar usando fields em SqlResultSetMapping senão solta Exception
-//        resultClass = Produto.class // também funciona se for um retorno simples
+            + "  FROM tb_produto ",     //  Se não especificar todas as colunas para ser retornadas, tem que especificar usando fields em SqlResultSetMapping senão solta Exception
+//      resultClass = Produto.class // também funciona se for um retorno simples
         resultSetMapping = "tb_produto.Produto" // o nome de uma SqlResultSetMapping para mapear o retorno
 
     ),
     @NamedNativeQuery(
         name = "tb_produto.listarTodosDTO",
-        query = "SELECT * FROM tb_produto ",
+        query = "SELECT p.id AS id, p.nome AS nome "
+            + "  FROM tb_produto p "
+            + "  ORDER BY p.id",
         resultSetMapping = "tb_produto.ProdutoDTO" // o nome de uma SqlResultSetMapping para mapear o retorno
     ),
 })
 
-@SqlResultSetMapping(name = "tb_produto.ProdutoDTO" // não existe um padrão para nomear, usando em: _12_consultas_nativas._5_Usando_SqlResultSetMapping_com_ColumnResult_e_retornando_DTO
-    , classes = {
-        @ConstructorResult(targetClass = ProdutoDTO.class, columns = { // tem que ser na ordem do construtor do ProdutoDTO
-            @ColumnResult(name = "id", type = Integer.class),
-            @ColumnResult(name = "nome", type = String.class)
-        })
-})
 @SqlResultSetMappings({
     @SqlResultSetMapping(name = "tb_produto.Produto" , entities = {
         @EntityResult(entityClass = Produto.class,
@@ -42,7 +37,13 @@ import java.util.List;
                 @FieldResult(name = "nome", column = "nome"),
             }
         )}
-    )
+    ),
+    @SqlResultSetMapping(name = "tb_produto.ProdutoDTO" , classes = { // não existe um padrão para nomear
+        @ConstructorResult(targetClass = ProdutoDTO.class, columns = { // tem que ser na ordem do construtor do ProdutoDTO
+            @ColumnResult(name = "id", type = Integer.class),
+            @ColumnResult(name = "nome", type = String.class)
+    })
+})
 })
 
 @NamedQueries({

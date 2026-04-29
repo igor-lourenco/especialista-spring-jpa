@@ -35,4 +35,10 @@ public class ProdutoService {
             .map(ProdutoDTO::new)
             .toList();
     }
+
+
+    @Transactional(readOnly = true) // busca lista de produtos usando DTO e consultas NamedNativeQuery com @SqlResultSetMapping para mapear retorno
+    public List<ProdutoDTO> findAllProdutosUsandoSqlResultSetMappingComNamedNativeQueryEDTO() {
+        return repository.findAllProdutosUsandoSqlResultSetMappingComNamedNativeQueryEDTO();
+    }
 }
