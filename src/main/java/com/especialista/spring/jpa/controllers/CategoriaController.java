@@ -1,5 +1,6 @@
 package com.especialista.spring.jpa.controllers;
 
+import com.especialista.spring.jpa.DTOs.CategoriaComProdutoDTO;
 import com.especialista.spring.jpa.DTOs.CategoriaDTO;
 import com.especialista.spring.jpa.services.CategoriaService;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,18 @@ public class CategoriaController {
         List<CategoriaDTO> cliente = service.findAllCategoriaDTOArquivoXML();
 
         log.info("RESPONSE - GET [findAllCategoriaDTOArquivoXML]");
+        return cliente;
+    }
+
+
+    @GetMapping(path = "usando-anotacao-fetch-con-lista-na-entidade")
+    @ResponseStatus(HttpStatus.OK) // usando @Fetch(FetchMode.SUBSELECT) na entidade para listas
+    public List<CategoriaComProdutoDTO> findAllUsandoFetchNaEntidade(){
+        log.info("REQUEST - GET [findAll]");
+
+        List<CategoriaComProdutoDTO> cliente = service.findAllUsandoFetchNaEntidade();
+
+        log.info("RESPONSE - GET [findAllUsandoFetchNaEntidade]");
         return cliente;
     }
 

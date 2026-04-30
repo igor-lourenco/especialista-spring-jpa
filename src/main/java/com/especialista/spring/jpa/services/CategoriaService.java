@@ -1,5 +1,6 @@
 package com.especialista.spring.jpa.services;
 
+import com.especialista.spring.jpa.DTOs.CategoriaComProdutoDTO;
 import com.especialista.spring.jpa.DTOs.CategoriaDTO;
 import com.especialista.spring.jpa.repositories.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,20 @@ public class CategoriaService {
             .toList();
     }
 
+
     @Transactional(readOnly = true) // Externalizando consultas NamedNativeQuery com SqlResultSetMappings com retorno DTO em um arquivo xml
     public List<CategoriaDTO> findAllCategoriaDTOArquivoXML() {
 
         return repository.findAllCategoriaDTOArquivoXML();
+    }
+
+
+    @Transactional(readOnly = true)  // usando @Fetch(FetchMode.SUBSELECT) na entidade para listas
+    public List<CategoriaComProdutoDTO> findAllUsandoFetchNaEntidade() {
+
+        return repository.findAll()
+            .stream()
+            .map(CategoriaComProdutoDTO::new)
+            .toList();
     }
 }
