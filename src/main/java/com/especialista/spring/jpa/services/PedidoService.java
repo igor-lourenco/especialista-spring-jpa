@@ -48,4 +48,13 @@ public class PedidoService {
             .map(PedidoDTO::new)
             .toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<PedidoDTO> findTodos() { // usando @EntityGraph
+
+        return pedidoRepository.findTodos()
+            .stream()
+            .map(PedidoDTO::new)
+            .toList();
+    }
 }

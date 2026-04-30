@@ -57,4 +57,15 @@ public class PedidoController {
     }
 
 
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK) // usando @EntityGraph
+    public List<PedidoDTO> findAll(){
+        log.info("REQUEST - GET [findTodos]");
+
+        List<PedidoDTO> lista = pedidoService.findTodos();
+
+        log.info("RESPONSE - GET [findTodos]");
+        return lista;
+    }
+
 }

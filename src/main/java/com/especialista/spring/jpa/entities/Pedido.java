@@ -3,12 +3,10 @@ package com.especialista.spring.jpa.entities;
 import com.especialista.spring.jpa.listeners.GenericoListener;
 import com.especialista.spring.jpa.listeners.GerarNotaFiscalListener;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.engine.spi.PersistentAttributeInterceptor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -121,13 +119,13 @@ public class Pedido extends EntidadeBaseInteger
 
 //    @LazyToOne(LazyToOneOption.NO_PROXY) // JPA não define bem o lazy para @OneToOne, então essa anotação diz ao Hibernate para
 //  carregar essa associação como LAZY, mas NÃO use um proxy para representar o objeto relacionado
-    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY) // um pedido tem uma nota fiscal (não owner)
+    @OneToOne(mappedBy = "pedido", fetch = FetchType.EAGER) // um pedido tem uma nota fiscal (não owner)
     private NotaFiscal notaFiscal;
 
-    @Getter(AccessLevel.NONE) // para não gerar o getter
-    @Setter(AccessLevel.NONE) // para não gerar o setter
-    @Transient                // para não ser persistidono banco de dados
-    private PersistentAttributeInterceptor persistentAttributeInterceptor; // criado para interceptar os atributos em tempo de execução
+//    @Getter(AccessLevel.NONE) // para não gerar o getter
+//    @Setter(AccessLevel.NONE) // para não gerar o setter
+//    @Transient                // para não ser persistidono banco de dados
+//    private PersistentAttributeInterceptor persistentAttributeInterceptor; // criado para interceptar os atributos em tempo de execução
 
     public boolean isPago(){
         return StatusPedido.PAGO.equals(this.status);
