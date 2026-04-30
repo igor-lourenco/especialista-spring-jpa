@@ -21,4 +21,9 @@ public interface PedidoRepository extends CustomJpaRepository<Pedido, Integer>, 
         type = EntityGraph.EntityGraphType.FETCH // por padrão é FETCH(jakarta.persistence.fetchgraph)
     )
     List<Pedido> findTodos();
+
+
+    @Query(value = "FROM Pedido p")
+    @EntityGraph(value = "Pedido.dadosEssenciais") // // usando @NamedEntityGraph na entidade + uso no repository
+    List<Pedido> findPedidoComClienteUsandoNamedEntityGraph();
 }

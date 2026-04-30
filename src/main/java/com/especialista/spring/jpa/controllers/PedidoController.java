@@ -1,5 +1,6 @@
 package com.especialista.spring.jpa.controllers;
 
+import com.especialista.spring.jpa.DTOs.PedidoComClienteDTO;
 import com.especialista.spring.jpa.DTOs.PedidoDTO;
 import com.especialista.spring.jpa.DTOs.PedidoResumoDTO;
 import com.especialista.spring.jpa.services.PedidoService;
@@ -57,14 +58,26 @@ public class PedidoController {
     }
 
 
-    @GetMapping()
+    @GetMapping(path = "/findTodos")
     @ResponseStatus(HttpStatus.OK) // usando @EntityGraph
-    public List<PedidoDTO> findAll(){
+    public List<PedidoDTO> findTodos(){
         log.info("REQUEST - GET [findTodos]");
 
         List<PedidoDTO> lista = pedidoService.findTodos();
 
         log.info("RESPONSE - GET [findTodos]");
+        return lista;
+    }
+
+
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK) // usando @NamedEntityGraph na entidade + uso no repository
+    public List<PedidoComClienteDTO> findPedidoComClienteUsandoNamedEntityGraph(){
+        log.info("REQUEST - GET [findPedidoComClienteUsandoNamedEntityGraph]");
+
+        List<PedidoComClienteDTO> lista = pedidoService.findPedidoComClienteUsandoNamedEntityGraph();
+
+        log.info("RESPONSE - GET [findPedidoComClienteUsandoNamedEntityGraph]");
         return lista;
     }
 

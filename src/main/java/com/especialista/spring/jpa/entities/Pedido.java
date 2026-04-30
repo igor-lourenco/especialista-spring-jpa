@@ -13,23 +13,21 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-@NamedEntityGraphs({ // usando em _13_Bean_Validation_Pool_de_conexoes_Entity_Graph_e_detalhes_avancados/_5_EntityGraph/_4_Configurando_Entity_Graph_com_Anotacao
+@NamedEntityGraphs({
     @NamedEntityGraph(
         name = "Pedido.dadosEssenciais", // nome do EntityGraph para ser referenciado
         attributeNodes = {
-            @NamedAttributeNode("dataCriacao"),
-            @NamedAttributeNode("status"),
-            @NamedAttributeNode("total"),
-            @NamedAttributeNode(
-                value = "cliente",
-                subgraph = "Cliente.dadosEssenciais"),
+//            @NamedAttributeNode("dataCriacao"), @NamedAttributeNode("status"), @NamedAttributeNode("total"), // campos básicos SEMPRE são carregados
+
+            @NamedAttributeNode("pagamento"),  @NamedAttributeNode("notaFiscal"), // EntityGraph controla apenas associações, nunca campos simples
+
+            @NamedAttributeNode(value = "cliente", subgraph = "Cliente.dadosEssenciais"),
         },
         subgraphs = {
             @NamedSubgraph(
                 name = "Cliente.dadosEssenciais", // nome do SubEntityGraph para ser referenciado
                 attributeNodes = {
-                    @NamedAttributeNode("nome"),
-                    @NamedAttributeNode("cpf"),
+//                    @NamedAttributeNode("nome"), @NamedAttributeNode("cpf"),// campos básicos SEMPRE são carregados
                 })
         }
     )

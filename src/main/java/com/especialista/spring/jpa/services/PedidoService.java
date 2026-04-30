@@ -1,5 +1,6 @@
 package com.especialista.spring.jpa.services;
 
+import com.especialista.spring.jpa.DTOs.PedidoComClienteDTO;
 import com.especialista.spring.jpa.DTOs.PedidoDTO;
 import com.especialista.spring.jpa.DTOs.PedidoResumoDTO;
 import com.especialista.spring.jpa.repositories.PedidoRepository;
@@ -55,6 +56,14 @@ public class PedidoService {
         return pedidoRepository.findTodos()
             .stream()
             .map(PedidoDTO::new)
+            .toList();
+    }
+
+    public List<PedidoComClienteDTO> findPedidoComClienteUsandoNamedEntityGraph() { // usando @NamedEntityGraph na entidade + uso no repository
+
+        return pedidoRepository.findPedidoComClienteUsandoNamedEntityGraph()
+            .stream()
+            .map(PedidoComClienteDTO::new)
             .toList();
     }
 }
