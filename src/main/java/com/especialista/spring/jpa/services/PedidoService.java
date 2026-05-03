@@ -59,6 +59,8 @@ public class PedidoService {
             .toList();
     }
 
+
+    @Transactional(readOnly = true)
     public List<PedidoComClienteDTO> findPedidoComClienteUsandoNamedEntityGraph() { // usando @NamedEntityGraph na entidade + uso no repository
 
         return pedidoRepository.findPedidoComClienteUsandoNamedEntityGraph()

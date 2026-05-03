@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.ehcache.org/v3"
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xsi:schemaLocation="
+            http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd
+            http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext.xsd">
+
+
+    <service> <!-- Configuração padrão para JCache (Spring Cache usa isso) -->
+        <jsr107:defaults default-template="padrao"/>
+    </service>
+
+    <cache alias="pagamentoDTO" uses-template="padrao"> <!-- Cache específico para @Cacheable("pagamentoDTO") -->
+        <expiry>
+            <ttl unit="minutes">10</ttl> <!-- Tempo máximo que o dado pode ficar no cache, esse sobrepoe o do padrao -->
+        </expiry>
+    </cache>
+
+    <cache alias="pagamentoResumoDTO" uses-template="padrao"> <!-- Cache específico para @Cacheable("pagamentoResumoDTO") -->
+        <expiry>
+            <ttl unit="minutes">10</ttl> <!-- Tempo máximo que o dado pode ficar no cache, esse sobrepoe o do padrao -->
+        </expiry>
+    </cache>
+
+    <!-- Template reutilizável -->
+    <cache-template name="padrao">
+        <key-type>java.lang.Object</key-type>
+        <value-type>java.lang.Object</value-type>
+
+        <expiry>
+            <ttl unit="minutes">10</ttl> <!-- Tempo máximo que o dado pode ficar no cache -->
+        </expiry>
+
+        <resources>
+            <heap unit="entries">1000</heap> <!-- Máx. 1000 entradas em memória -->
+        </resources>
+    </cache-template>
+
+</config>
