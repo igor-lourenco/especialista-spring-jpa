@@ -34,25 +34,38 @@ public class PagamentoController {
     }
 
 
-    @GetMapping(path = "/usando-anotacao-ehcache1")   //  busca pagamento usando anotação do EhCache
+    @GetMapping(path = "/usando-anotacao-cacheable1")   //  busca pagamento usando anotação Cacheable
     @ResponseStatus(HttpStatus.OK)
     public PagamentoDTO findPagamentoDTOByIdWithEhCache(Integer id){
-        log.info("REQUEST - GET [findAllByStatus]");
+        log.info("REQUEST - GET [findPagamentoDTOByIdWithEhCache]");
 
-        PagamentoDTO obj = service.findPagamentoDTOByIdWithEhCache(id);
+        PagamentoDTO obj = service.findPagamentoDTOByIdWithCache(id);
 
-        log.info("RESPONSE - GET [findAllByStatus]");
+        log.info("RESPONSE - GET [findPagamentoDTOByIdWithEhCache]");
         return obj;
     }
 
-    @GetMapping(path = "/usando-anotacao-ehcache2")   //  busca pagamento usando anotação do EhCache
+
+    @GetMapping(path = "/usando-anotacao-cacheable2")   //  busca pagamento usando anotação Cacheable
     @ResponseStatus(HttpStatus.OK)
     public PagamentoResumoDTO findPagamentoResumoDTOByIdWithEhCache(Integer id){
-        log.info("REQUEST - GET [findAllByStatus]");
+        log.info("REQUEST - GET [findPagamentoResumoDTOByIdWithEhCache]");
 
-        PagamentoResumoDTO obj = service.findPagamentoResumoDTOByIdWithEhCache(id);
+        PagamentoResumoDTO obj = service.findPagamentoResumoDTOByIdWithCache(id);
 
-        log.info("RESPONSE - GET [findAllByStatus]");
+        log.info("RESPONSE - GET [findPagamentoResumoDTOByIdWithEhCache]");
+        return obj;
+    }
+
+
+    @GetMapping(path = "/usando-api-cachemanager")  //  busca pagamento usando API CacheManager
+    @ResponseStatus(HttpStatus.OK)
+    public PagamentoResumoDTO findPagamentoDTOByIdWithAPICacheManager(Integer id){
+        log.info("REQUEST - GET [findPagamentoDTOByIdWithAPICacheManager]");
+
+        PagamentoResumoDTO obj = service.findPagamentoResumoDTOByIdWithCache(id);
+
+        log.info("RESPONSE - GET [findPagamentoDTOByIdWithAPICacheManager]");
         return obj;
     }
 
