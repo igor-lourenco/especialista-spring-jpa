@@ -54,6 +54,16 @@ public class PagamentoComCacheController {
     }
 
 
+    @GetMapping(path = "/usando-anotacao-cacheable-sync")   //  busca pagamento usando anotação Cacheable com sync para múltiplas requisições simultâneas
+    @ResponseStatus(HttpStatus.OK)
+    public PagamentoResumoDTO findPagamentoResumoDTOByIdWithEhCacheSync(Integer id){
+        log.info("REQUEST - GET [findPagamentoResumoDTOByIdWithEhCacheSync]");
+
+        PagamentoResumoDTO obj = service.findPagamentoResumoDTOByIdWithEhCacheSync(id);
+
+        log.info("RESPONSE - GET [findPagamentoResumoDTOByIdWithEhCacheSync]");
+        return obj;
+    }
 
 //  ============================================
 //  ============= API CacheManager =============

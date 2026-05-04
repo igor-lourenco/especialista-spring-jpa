@@ -50,7 +50,6 @@ public class PagamentoComCacheService {
     }
 
 
-
     @Transactional
     @CachePut(value = "pagamentoDTO", key = "#result.id") // (também usado para POST) Atualiza o cache com o valor retornado do método
 //    @CacheEvict(value = "pagamentoDTO", key = "#result.id") //(também usado para DELETE) Cache é apagado, aí o próximo @Cacheable vai ao banco e recria o cache atualizado
@@ -64,6 +63,18 @@ public class PagamentoComCacheService {
     }
 
 
+//  sync = true -> garante que para uma mesma chave de cache, apenas UMA thread execute o método quando o cache está vazio.
+//  as outras threads esperam o resultado ficar no cache e não executam o método. Spring cria um lock por chave de cache, ou seja, tem custo de bloqueio
+//  Usado quando: Método é caro, Alta concorrência, Cache é muito acessado, Backend sensível (DB lento, API externa)
+    @Cacheable(value = "pagamentoResumoDTO", key = "#id", sync = true)
+    @Transactional(readOnly = true)
+    public PagamentoResumoDTO findPagamentoResumoDTOByIdWithEhCacheSync(Integer id) { // busca pagamento usando anotação Cacheable com sync para múltiplas requisições simultâneas
+
+        return repository.findById(id)
+            .map(PagamentoResumoDTO::new)
+            .orElseThrow(() ->
+                new RuntimeException("Pagamento não encontrado"));
+    }
 
 
 //  ============================================
