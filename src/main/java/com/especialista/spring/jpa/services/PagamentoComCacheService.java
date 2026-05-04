@@ -2,11 +2,15 @@ package com.especialista.spring.jpa.services;
 
 import com.especialista.spring.jpa.DTOs.PagamentoDTO;
 import com.especialista.spring.jpa.DTOs.PagamentoResumoDTO;
+import com.especialista.spring.jpa.DTOs.PagamentoUpdateDTO;
+import com.especialista.spring.jpa.entities.Pagamento;
+import com.especialista.spring.jpa.entities.StatusPagamento;
 import com.especialista.spring.jpa.repositories.PagamentoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +49,25 @@ public class PagamentoComCacheService {
     }
 
 
+
+    @Transactional
+    @CachePut(value = "pagamentoDTO", key = "#result.id") // Atualiza o cache com o valor retornado do método
+//    @CacheEvict(value = "pagamentoDTO", key = "#result.id") // Cache é apagado, aí o próximo @Cacheable vai ao banco e recria o cache atualizado
+    public PagamentoDTO updatePagamentoDTOByIdWithEhCache(Integer id, PagamentoUpdateDTO dto) {
+
+        Pagamento pag = repository.findById(id).orElseThrow(() ->
+                new RuntimeException("Pagamento não encontrado"));
+
+        pag.setStatus(StatusPagamento.valueOf(dto.status()));
+        return new PagamentoDTO(pag);
+    }
+
+
+
+
+//  ============================================
+//  ============= API CacheManager =============
+
 //  Usando a API CacheManager para buscar e manipular o cache programaticamente
 //  esse método faz a mesma coisa que o @Cacheable(value = "pagamentoDTO", key = "#id")
     @Transactional(readOnly = true)
@@ -63,5 +86,6 @@ public class PagamentoComCacheService {
         cache.put(id, dto); // Armazena o DTO no cache
         return dto;
     }
+
 
 }

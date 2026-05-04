@@ -8,6 +8,8 @@
             http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext.xsd">
 
 
+    <!-- Documentação do EhCache: https://www.ehcache.org/documentation/3.10/ -->
+
     <service> <!-- Configuração padrão para JCache (Spring Cache usa isso) -->
         <jsr107:defaults default-template="padrao"/>
     </service>

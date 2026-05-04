@@ -2,14 +2,12 @@ package com.especialista.spring.jpa.controllers;
 
 import com.especialista.spring.jpa.DTOs.PagamentoDTO;
 import com.especialista.spring.jpa.DTOs.PagamentoResumoDTO;
+import com.especialista.spring.jpa.DTOs.PagamentoUpdateDTO;
 import com.especialista.spring.jpa.services.PagamentoComCacheService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -43,6 +41,22 @@ public class PagamentoComCacheController {
         return obj;
     }
 
+
+    @PutMapping(path = "/usando-anotacao")   //  atualiza o pagamento usando anotação @CachePut, @CacheEvict
+    @ResponseStatus(HttpStatus.OK)
+    public PagamentoDTO updatePagamentoDTOByIdWithEhCache(Integer id, @RequestBody PagamentoUpdateDTO dto){
+        log.info("REQUEST - PUT [updatePagamentoDTOByIdWithEhCache]");
+
+        PagamentoDTO obj = service.updatePagamentoDTOByIdWithEhCache(id, dto);
+
+        log.info("RESPONSE - PUT [updatePagamentoDTOByIdWithEhCache]");
+        return obj;
+    }
+
+
+
+//  ============================================
+//  ============= API CacheManager =============
 
     @GetMapping(path = "/usando-api-cachemanager")  //  busca pagamento usando API CacheManager
     @ResponseStatus(HttpStatus.OK)
