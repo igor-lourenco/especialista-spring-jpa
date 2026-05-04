@@ -68,4 +68,16 @@ public class PagamentoComCacheController {
         log.info("RESPONSE - GET [findPagamentoDTOByIdWithAPICacheManager]");
         return obj;
     }
+
+    @PutMapping(path = "/usando-api-cachemanager")   //  atualiza o pagamento usando API CacheManager
+    @ResponseStatus(HttpStatus.OK)
+    public PagamentoDTO updatePagamentoDTOByIdWithCacheManager(Integer id, @RequestBody PagamentoUpdateDTO dto){
+        log.info("REQUEST - PUT [updatePagamentoDTOByIdWithCacheManager]");
+
+        PagamentoDTO obj = service.updatePagamentoDTOByIdWithCacheManager(id, dto);
+
+        log.info("RESPONSE - PUT [updatePagamentoDTOByIdWithCacheManager]");
+        return obj;
+    }
+
 }

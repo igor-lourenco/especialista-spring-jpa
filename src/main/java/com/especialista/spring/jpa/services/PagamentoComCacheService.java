@@ -36,6 +36,7 @@ public class PagamentoComCacheService {
                 new RuntimeException("Pagamento não encontrado"));
     }
 
+
 //  sempre armazena o valor retornado pelo método anotado com @Cacheable, nesse caso o PagamentoResumoDTO
 //  obs: se usar o mesmo 'value' para o retorno de classes diferentes gera exception e bugs na aplicação
     @Cacheable(value = "pagamentoResumoDTO", key = "#id")
@@ -51,8 +52,8 @@ public class PagamentoComCacheService {
 
 
     @Transactional
-    @CachePut(value = "pagamentoDTO", key = "#result.id") // Atualiza o cache com o valor retornado do método
-//    @CacheEvict(value = "pagamentoDTO", key = "#result.id") // Cache é apagado, aí o próximo @Cacheable vai ao banco e recria o cache atualizado
+    @CachePut(value = "pagamentoDTO", key = "#result.id") // (também usado para POST) Atualiza o cache com o valor retornado do método
+//    @CacheEvict(value = "pagamentoDTO", key = "#result.id") //(também usado para DELETE) Cache é apagado, aí o próximo @Cacheable vai ao banco e recria o cache atualizado
     public PagamentoDTO updatePagamentoDTOByIdWithEhCache(Integer id, PagamentoUpdateDTO dto) {
 
         Pagamento pag = repository.findById(id).orElseThrow(() ->
@@ -68,8 +69,9 @@ public class PagamentoComCacheService {
 //  ============================================
 //  ============= API CacheManager =============
 
+
 //  Usando a API CacheManager para buscar e manipular o cache programaticamente
-//  esse método faz a mesma coisa que o @Cacheable(value = "pagamentoDTO", key = "#id")
+//  esse método faz o mesmo que o @Cacheable(value = "pagamentoDTO", key = "#id")
     @Transactional(readOnly = true)
     public PagamentoDTO findPagamentoDTOByIdWithAPICacheManager(Integer id) {
 
@@ -88,4 +90,23 @@ public class PagamentoComCacheService {
     }
 
 
+//  Usando a API CacheManager para buscar e manipular o cache programaticamente
+//  esse método faz o mesmo que o  @CachePut(value = "pagamentoDTO", key = "#result.id")
+    @Transactional
+    public PagamentoDTO updatePagamentoDTOByIdWithCacheManager(Integer id, PagamentoUpdateDTO dto) {
+
+        Pagamento pag = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Pagamento não encontrado"));
+
+        pag.setStatus(StatusPagamento.valueOf(dto.status()));
+        PagamentoDTO pagDTO = new PagamentoDTO(pag);
+
+        Cache cache = cacheManager.getCache("pagamentoDTO");
+        if (cache != null) {
+//            cache.put(pagDTO.id(), pagDTO); // Se existir atualizar senão cria o cache, equivalente ao @CachePUT
+          cache.evict(pagDTO.id()); // Remove o cache, equivalente ao @CacheEvict
+        }
+
+        return pagDTO;
+    }
 }
