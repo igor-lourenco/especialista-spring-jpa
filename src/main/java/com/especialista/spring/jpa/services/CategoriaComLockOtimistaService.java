@@ -24,12 +24,12 @@ public class CategoriaComLockOtimistaService {
 //  se esse método lançar OptimisticLockingFailureException, executa de novo
     @Retryable(retryFor = OptimisticLockingFailureException.class,
         maxAttempts = 8,                                // se falhar 8 vezes chama o @Recover
-        backoff = @Backoff(delay = 100, multiplier = 3) // tempo de espera entre as tentativas: 1 → 2 100 ms | 2 → 3 200 ms | 3 → 4 400 ms
+        backoff = @Backoff(delay = 100, multiplier = 2) // tempo de espera entre as tentativas: 1 → 2 100 ms | 2 → 3 200 ms | 3 → 4 400 ms
     )
     @Transactional(propagation = Propagation.REQUIRES_NEW) // Cada tentativa do retry roda em uma NOVA transação
     public CategoriaDTO updateComLockOtimista(Integer id) {
 
-//     retorna quantas tentativas já ocorreram, começa com 0
+//      retorna quantas tentativas já ocorreram, começa com 0
         int retryNumber = RetrySynchronizationManager.getContext().getRetryCount();
 
         log.info("Retry Number: "+ retryNumber);
@@ -40,6 +40,33 @@ public class CategoriaComLockOtimistaService {
         categoria.setNome(nome);
 
         repository.save(categoria); // não precisa do flush
+
+        log.info("Atualizando com versão {}", categoria.getVersao());
+        return new CategoriaDTO(categoria);
+    }
+
+
+//  se esse método lançar OptimisticLockingFailureException, executa de novo
+    @Retryable(retryFor = OptimisticLockingFailureException.class,
+        maxAttempts = 8,                                // se falhar 8 vezes chama o @Recover
+        backoff = @Backoff(delay = 100, multiplier = 2) // tempo de espera entre as tentativas: 1 → 2 100 ms | 2 → 3 200 ms | 3 → 4 400 ms
+    )
+    @Transactional(propagation = Propagation.REQUIRES_NEW) // Cada tentativa do retry roda em uma NOVA transação
+    public CategoriaDTO updateComLockOtimistaUsandoAnotacao(Integer id) {
+
+//      retorna quantas tentativas já ocorreram, começa com 0
+        int retryNumber = RetrySynchronizationManager.getContext().getRetryCount();
+
+        log.info("Retry Number: "+ retryNumber);
+        String nome = "Eletrodomésticos [" + retryNumber + "]";
+
+//      O conflito acontece mais cedo, no flush da leitura
+        Categoria categoria = repository.findByIdComLockOtimistaUsandoAnotacao(id)
+                .orElseThrow();
+
+        categoria.setNome(nome);
+
+        repository.save(categoria); // sem flush
 
         log.info("Atualizando com versão {}", categoria.getVersao());
         return new CategoriaDTO(categoria);

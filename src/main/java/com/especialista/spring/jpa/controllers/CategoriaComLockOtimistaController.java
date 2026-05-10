@@ -19,11 +19,22 @@ public class CategoriaComLockOtimistaController {
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK) //
     public CategoriaDTO updateComLockOtimista(@PathVariable Integer id){
-        log.info("REQUEST - GET [updateComLockOtimista]");
+        log.info("REQUEST - PUT [updateComLockOtimista]");
 
         CategoriaDTO cliente = service.updateComLockOtimista(id);
 
-        log.info("RESPONSE - GET [updateComLockOtimista]");
+        log.info("RESPONSE - PUT [updateComLockOtimista]");
+        return cliente;
+    }
+
+    @PutMapping(path = "/usando-anotacao-lock/{id}")
+    @ResponseStatus(HttpStatus.OK) //
+    public CategoriaDTO updateComLockOtimistaUsandoAnotacao(@PathVariable Integer id){
+        log.info("REQUEST - PUT [updateComLockOtimistaUsandoAnotacao]");
+
+        CategoriaDTO cliente = service.updateComLockOtimistaUsandoAnotacao(id);
+
+        log.info("RESPONSE - PUT [updateComLockOtimistaUsandoAnotacao]");
         return cliente;
     }
 
