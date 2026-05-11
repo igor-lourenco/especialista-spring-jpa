@@ -3,9 +3,11 @@ package com.especialista.spring.jpa.repositories;
 import com.especialista.spring.jpa.DTOs.CategoriaDTO;
 import com.especialista.spring.jpa.entities.Categoria;
 import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +39,23 @@ public interface CategoriaRepository extends CustomJpaRepository<Categoria, Inte
         WHERE c.id = :id
     """)
     Optional<Categoria> findByIdComLockOtimistaUsandoAnotacao(@Param("id") Integer id);
+
+
+
+    @Lock(LockModeType.PESSIMISTIC_READ)
+
+    @QueryHints({
+        @QueryHint(
+            name = "jakarta.persistence.lock.timeout",
+            value = "3000" // em milissegundos
+        )
+    })
+    @Query("""
+        SELECT c
+        FROM Categoria c
+        LEFT JOIN FETCH c.categoriaPai
+        WHERE c.id = :id
+    """)
+    Optional<Categoria> updateComLockPessimistaUsando_READ(@Param("id") Integer id);
 
 }
