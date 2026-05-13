@@ -43,7 +43,6 @@ public interface CategoriaRepository extends CustomJpaRepository<Categoria, Inte
 
 
     @Lock(LockModeType.PESSIMISTIC_READ)
-
     @QueryHints({
         @QueryHint(
             name = "jakarta.persistence.lock.timeout",
@@ -56,6 +55,22 @@ public interface CategoriaRepository extends CustomJpaRepository<Categoria, Inte
         LEFT JOIN FETCH c.categoriaPai
         WHERE c.id = :id
     """)
-    Optional<Categoria> updateComLockPessimistaUsando_READ(@Param("id") Integer id);
+    Optional<Categoria> findByIdComLockPessimistaUsando_READ(@Param("id") Integer id);
+
+
+    @Lock(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
+    @QueryHints({
+        @QueryHint(
+            name = "jakarta.persistence.lock.timeout",
+            value = "3000" // em milissegundos
+        )
+    })
+    @Query("""
+        SELECT c
+        FROM Categoria c
+        LEFT JOIN FETCH c.categoriaPai
+        WHERE c.id = :id
+    """)
+    Optional<Categoria> findByIdComLockPessimistaUsando_WRITE(@Param("id") Integer id);
 
 }

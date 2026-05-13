@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class CategoriaComLockPessimistaService {
+public class CategoriaComLockPessimista_READ_Service {
 
     private final CategoriaRepository repository;
 
@@ -26,7 +26,7 @@ public class CategoriaComLockPessimistaService {
     public CategoriaDTO updateComLockPessimistaUsando_READ(Integer id, Integer contador) {
         log.info("Buscando categoria com PESSIMISTIC_READ");
 
-        Categoria categoria = repository.updateComLockPessimistaUsando_READ(id)
+        Categoria categoria = repository.findByIdComLockPessimistaUsando_READ(id)
             .orElseThrow();
 
         try { Thread.sleep(10000); // simulando processamento
@@ -34,9 +34,9 @@ public class CategoriaComLockPessimistaService {
 
         categoria.setNome("Eletrodomésticos [" + contador + "]");
 
-//      Com LockModeType.PESSIMISTIC_READ *NÃO* existe garantia de que apenas um commit será executado com sucesso,
-//      ou seja, pode ser executar mais de um commit com sucesso em transações simultâneas,
-//      ele garante a leitura consistente não o bloqueio do update/delete enquanto a leitura etá ativa
+//      Com LockModeType.PESSIMISTIC_READ, *NÂO* existe garantia de que apenas um commit será executado com sucesso,
+//      múltiplas transações podem commitar. Esse lock garante leitura consistente em cenários concorrentes,
+//      bloqueando operações de UPDATE e DELETE enquanto a leitura estiver ativa
         repository.save(categoria);
 
         log.info("Atualizando com versão {}, {}", categoria.getVersao(), categoria.getNome());
