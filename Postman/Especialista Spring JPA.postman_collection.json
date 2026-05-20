@@ -1,0 +1,703 @@
+{
+  "info": {
+    "_postman_id": "e3cdfcfa-f491-419b-b5c9-657409ab9ee0",
+    "name": "Especialista Spring JPA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12598061",
+    "_collection_link": "https://go.postman.co/collection/12598061-e3cdfcfa-f491-419b-b5c9-657409ab9ee0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Categoria",
+      "item": [
+        {
+          "name": "Externalizando consultas NamedNativeQuery com SqlResultSetMappings em um arquivo xml",
+          "item": [
+            {
+              "name": "Busca todos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/categorias/externalizando-consultas-named-native-query-no-arquivo-xml",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "categorias",
+                    "externalizando-consultas-named-native-query-no-arquivo-xml"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Externalizando consultas NamedNativeQuery com SqlResultSetMappings em um arquivo xml",
+          "item": [
+            {
+              "name": "Busca todos",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/categorias/externalizando-consultas-named-native-query-com-DTO-no-arquivo-xml",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "categorias",
+                    "externalizando-consultas-named-native-query-com-DTO-no-arquivo-xml"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Usando @Fetch(FetchMode.SUBSELECT) na entidade para listas",
+          "item": [
+            {
+              "name": "Busca todos",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/categorias/usando-anotacao-fetch-con-lista-na-entidade",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "categorias",
+                    "usando-anotacao-fetch-con-lista-na-entidade"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cliente",
+      "item": [
+        {
+          "name": "Busca todos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9100/v1/clientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9100",
+              "path": [
+                "v1",
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Busca todos resumo (sem pedido)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9100/v1/clientes/resumo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9100",
+              "path": [
+                "v1",
+                "clientes",
+                "resumo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Busca todos  usando projeção com DTO",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9100/v1/clientes/projecao-com-dto",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9100",
+              "path": [
+                "v1",
+                "clientes",
+                "projecao-com-dto"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Busca Cliente que contem caractere no nome com Specification",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:9100/v1/clientes/por-like-nome-spec?caractere=b",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "9100",
+              "path": [
+                "v1",
+                "clientes",
+                "por-like-nome-spec"
+              ],
+              "query": [
+                {
+                  "key": "caractere",
+                  "value": "b"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pagamento",
+      "item": [
+        {
+          "name": "Cache",
+          "item": [
+            {
+              "name": "Usando @Cacheable",
+              "item": [
+                {
+                  "name": "Busca PagamentoDTO pelo ID",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:9100/v1/pagamentos/cache/usando-anotacao-cacheable1?id=3",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "9100",
+                      "path": [
+                        "v1",
+                        "pagamentos",
+                        "cache",
+                        "usando-anotacao-cacheable1"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Busca PagamentoResumoDTO pelo ID",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:9100/v1/pagamentos/cache/usando-anotacao-cacheable2?id=3",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "9100",
+                      "path": [
+                        "v1",
+                        "pagamentos",
+                        "cache",
+                        "usando-anotacao-cacheable2"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Usando API CacheManager",
+              "item": [
+                {
+                  "name": "Busca PagamentoDTO pelo ID",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:9100/v1/pagamentos/cache/usando-api-cachemanager?id=3",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "9100",
+                      "path": [
+                        "v1",
+                        "pagamentos",
+                        "cache",
+                        "usando-api-cachemanager"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Atualiza Pagamento",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"status\" : \"CANCELADO\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:9100/v1/pagamentos/cache/usando-api-cachemanager?id=3",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "9100",
+                      "path": [
+                        "v1",
+                        "pagamentos",
+                        "cache",
+                        "usando-api-cachemanager"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Usando anotação @CachePut, @CacheEvict para Atualizar",
+              "item": [
+                {
+                  "name": "Atualiza Pagamento",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"status\" : \"CANCELADO\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:9100/v1/pagamentos/cache/usando-anotacao?id=3",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "9100",
+                      "path": [
+                        "v1",
+                        "pagamentos",
+                        "cache",
+                        "usando-anotacao"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Usando @Cacheable com sync para múltiplas requisições simultâneas",
+              "item": [
+                {
+                  "name": "Busca PagamentoResumoDTO pelo ID",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:9100/v1/pagamentos/cache/usando-anotacao-cacheable-sync?id=3",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "9100",
+                      "path": [
+                        "v1",
+                        "pagamentos",
+                        "cache",
+                        "usando-anotacao-cacheable-sync"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Customizando repositório específico (CustomPagamentoRepositoryImpl)",
+          "item": [
+            {
+              "name": "Busca lista de pagamentos a partir do status especificado",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/pagamentos/usando-customizacao-repositorio-especifica?status=PROCESSANDO",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "pagamentos",
+                    "usando-customizacao-repositorio-especifica"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "PROCESSANDO"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pedido",
+      "item": [
+        {
+          "name": "Usando Join Fetch com entidade e Specification",
+          "item": [
+            {
+              "name": "Busca lista de Pedidos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/pedidos/join-fetch-spec",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "pedidos",
+                    "join-fetch-spec"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Usando CustomJpaRepository",
+          "item": [
+            {
+              "name": "Busca o ultimo registro criado",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/pedidos/customizando-repositorio-base",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "pedidos",
+                    "customizando-repositorio-base"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Externalizando consultas NamedQuery com JPQL em um arquivo xml",
+          "item": [
+            {
+              "name": "Busca lista de pedidos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/pedidos/externalizando-jpql-para-arquivo-xml",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "pedidos",
+                    "externalizando-jpql-para-arquivo-xml"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Usando @EntityGraph",
+          "item": [
+            {
+              "name": "Busca todos os relacionamentos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/pedidos/findTodos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "pedidos",
+                    "findTodos"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Usando @NamedEntityGraph na entidade + uso no repository",
+          "item": [
+            {
+              "name": "Busca todos os relacionamentos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/pedidos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "pedidos"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Produto",
+      "item": [
+        {
+          "name": "Usando NamedQuerie na entidade",
+          "item": [
+            {
+              "name": "Busca todos pela categoriaId",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/produtos/usando-anotacao_NamedQueries-na-entidade?categoriaId=1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "produtos",
+                    "usando-anotacao_NamedQueries-na-entidade"
+                  ],
+                  "query": [
+                    {
+                      "key": "categoriaId",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Usando a consulta que está na anotação @NamedNativeQuerie com @SqlResultSetMapping da entidade",
+          "item": [
+            {
+              "name": "Busca todos",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/produtos/usando-SqlResultSetMapping-com-NamedNativeQuery",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "produtos",
+                    "usando-SqlResultSetMapping-com-NamedNativeQuery"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Usando DTO com consulta que está na anotação @NamedNativeQuerie com @SqlResultSetMapping da entidade",
+          "item": [
+            {
+              "name": "Busca todos",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:9100/v1/produtos/usando-SqlResultSetMapping-com-NamedNativeQuery-e-DTO",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "9100",
+                  "path": [
+                    "v1",
+                    "produtos",
+                    "usando-SqlResultSetMapping-com-NamedNativeQuery-e-DTO"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
